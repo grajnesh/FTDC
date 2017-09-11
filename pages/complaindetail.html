@@ -1,0 +1,65 @@
+﻿<div class="" ng-show="ComplainVisitForm">
+    <!--Complain Detail SHOW-->
+    <table cellpadding=10 cellspacing=10 border=0 class="table">
+        <tr>
+            <!--<th>CId</th>-->
+            <th>No.</th>
+            <th ng-click="sort('actualcomplain')">
+                Patient Complain
+                <span class="glyphicon sort-icon" ng-show="sortKey=='visitdesc'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+            </th>
+            <th ng-click="sort('diagnosis')">
+                Diagnosis
+                <span class="glyphicon sort-icon" ng-show="sortKey=='visitcost'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+            </th>
+            <th ng-click="sort('treatment')">
+                Treatment
+                <span class="glyphicon sort-icon" ng-show="sortKey=='visitcost'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+            </th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <tr ng-repeat="user in complains|orderBy:sortKey:reverse" ng-class="$even ? 'even-row' : 'odd-row'">
+            <!--<td>{{user.id}}</td>-->
+            <td>{{$index+1}}</td>
+            <td>{{user.actualcomplain }}</td>
+            <td>{{user.diagnosis }}</td>
+            <td>{{user.treatment }}</td>
+            <td><div ng-click="editComplain(user,'Update')" class="btn btn-primary">E</div></td>
+            <td><div ng-click="deleteComplain(user)" class="btn btn-danger">X</div></td>
+        </tr>
+    </table>
+    <!--Complain Detail EDIT-->
+        <div class="container" ng-show="ComplainFormContainer">        
+            <div ng-click="closeFrmBtn()">X</div>
+            <table class="table">
+                <tr>
+                    <td><b><i>Complain Id</i></b></td>
+                    <td><input type="text" disabled="disabled" ng-model="user.complainid" /></td>
+                </tr>
+                <tr>
+                    <td>Patient Id</td>
+                    <td><input type="text" disabled="disabled" ng-model="user.patientid" /></td>
+                </tr>
+                <tr>
+                    <td>Actual Complain</td>
+                    <td><textarea id="actualcomplain" rows="4" cols="50" placeholder="Patient Complain" ng-model="user.actualcomplain"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Diagnosis</td>
+                    <td><textarea id="diagnosis" rows="4" cols="50" placeholder="Diagnosis done by doctor" ng-model="user.diagnosis"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Treatment</td>
+                    <td><textarea id="treatment" rows="4" cols="50" placeholder="Treatment done by doctor" ng-model="user.treatment"></textarea></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="button" class="btn btn-default" value="Save" ng-click="AddUpdateComplain()" />
+                        <input type="button" class="btn btn-danger" value="Cancel" ng-click="Cancel()" />
+                    </td>
+                </tr>
+            </table>
+    </div><!-- End OF Container -->
+</div> <!-- ComplainVistForm -->

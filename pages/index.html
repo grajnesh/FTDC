@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html ng-app="website">
+<head>
+    <meta charset="utf-8">
+     <title>Family Tree Dental Clinic</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.css">
+    <link rel="stylesheet" href="../css/project.css">
+    <style>
+        span {margin: 5px;}
+    </style>
+
+ </head>
+
+<body ng-controller="MainCtrl">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-touch.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.10.3/TweenMax.min.js"></script>
+    <script src="../js/image-animation.js"></script>
+    <script src="../js/config.js"></script>
+
+    <!--Page Header-->
+    <div id="header" ng-include src="'header.html'"></div>
+
+    <!--Page Middle-->
+    <div id="main" class="container" ng-app="indexApp" >
+        <div class="row container well mtp75">
+            <span ng-click="viewPatientDetails()" class="pull-right btn btn-danger">View Patient Details</span>
+            <!--<span ng-click="addPatientDetails()" class="pull-right btn btn-danger">Add Patient Details</span>-->
+        </div>        
+     </div>
+
+     <!-- Addvertisement Area-->        
+        <div class="container slider" id="imageArea">
+            <img ng-repeat="slide in slides" class="slide slide-animation nonDraggableImage"
+                 ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
+                 ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.image}}">
+
+            <a class="arrow prev" href="#" ng-click="nextSlide()"></a>
+            <a class="arrow next" href="#" ng-click="prevSlide()"></a>
+            <nav class="nav">
+                <div class="wrapper">
+                    <ul class="dots">
+                        <li class="dot" ng-repeat="slide in slides">
+                            <a href="#" ng-class="{'active':isCurrentSlideIndex($index)}"
+                               ng-click="setCurrentSlideIndex($index);">{{slide.description}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    
+    <!--About US-->
+    <div class="container" id="aboutUs">
+        <hr />
+        <div ng-include src="'about.html'"></div>
+    </div>
+    <!--Contact-->
+    <div class="container" id="contactUs">
+        <hr />     
+        <div ng-include src="'contact.html'"></div>
+    </div>
+    <!--footer-->
+    <footer id="footer" class="text-center">
+      <!--Page Footer Detail-->
+      <div ng-include src="'footer.html'"></div>
+    </footer>
+
+</body>
+</html>

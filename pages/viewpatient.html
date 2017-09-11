@@ -1,0 +1,129 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Patient</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.css">
+    <link rel="stylesheet" href="../css/project.css">
+    <style>
+        span {
+            margin: 5px;
+        }
+    </style>
+    <!--For Date Control-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/Javascript">
+        function checkDec(el){
+         var ex = /^[0-9]+\.?[0-9]*$/;
+         if(ex.test(el.value)==false){
+           el.value = el.value.substring(0,el.value.length - 1);
+          }
+        }
+    </script>
+</head>
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <!--<script src="..js/angular.min.js"></script>-->
+    <script src="../js/dirPagination.js"></script>
+    <script src="../js/Module.js"></script>
+    <script src="../js/Service.js"></script>
+    <script src="../js/Controller.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/selectedRow.js"></script>
+    <!--For Model Popup-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>-->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js" type="text/javascript"></script>
+    <script src="https://m-e-conroy.github.io/angular-dialog-service/javascripts/dialogs.min.js" type="text/javascript"></script>
+
+
+    <div ng-app="crudApp">
+        <div ng-controller="crudController">
+
+            <div ng-include src="'modelPopup.html'"></div>
+
+            <!--Page Header-->
+            <div id="header" ng-include src="'header.html'"></div>
+
+            <!--Page Middle-->
+            <div id="main" class="container">
+                <div class="row container well mtp75">
+
+                    <div class="row">
+                        <span class="pull-left">
+                            <button ng-click="reset()" class="btn btn-danger">Reset</button>
+                        </span>
+                        <span class="pull-left">
+                            <input type="text" ng-model="search.firstname" class="form-control" placeholder="Search First Name" />
+                        </span>
+                        <span class="pull-left">
+                            <input type="text" ng-model="search.lastname" class="form-control" placeholder="Search Last Name" />
+                        </span>
+                        <span class="pull-left">
+                            <input type="text" ng-model="search.phone" class="form-control" placeholder="Search Phone" />
+                        </span>
+                        <span class="pull-left">
+                            <input type="text" ng-model="search.active" class="form-control" placeholder="Active" />
+                        </span>
+                        <!--<span class="pull-left">
+                            Only Active Patient <input type="checkbox" style="height:15px; width:15px;"
+                                                       ng-model="uActive"
+                                                       ng-change="activeChange()" value="1">
+                        </span>-->
+                        <span class="pull-right">
+                            <select class="pageNumber"
+                                    ng-model="actItem"
+                                    ng-change="activeStatus(actItem)"
+                                    ng-options="page for (idx,page) in itemShowCount"></select>
+                        </span>
+                        <!--<span ng-click="Home()" class="pull-right btn btn-danger">Home</span>-->
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="font-weight: bold; color:#c12e2a;">
+                        Patient Details <input type="checkbox" ng-model="PatientDetailContainer">
+                    </div>
+                    <span class="pull-right hyperlinktext" ng-click="editPatient(user,'Add')">Add New Patient</span>
+                  
+                    <!--Patient Page-->
+                    <div class="container well" ng-show="PatientDetailContainer" ng-include src="'patientdetail.html'"></div>
+
+                  <!--Complain & Visit Detail-->
+                    <div class="subHeading">
+                        Complain Details <input type="checkbox" ng-model="PatientComContainer">
+                        <span><input type="text" class="subHeading" style="width:500px;" ng-model="viewfirstname" disabled /></span>
+                    </div>
+                    <span ng-click="editComplain(user,'Add')" class="pull-right hyperlinktext">Add New Complain</span>
+                    <!--Complain Page-->
+                    <div class="container well" ng-show="PatientComContainer" ng-include src="'complaindetail.html'"></div>
+
+                    <!--Visit Details-->
+                    <div class="subHeading">
+                        Visit Details <input type="checkbox" ng-model="PatientVisitContainer">
+                        <span><input type="text" class="subHeading" style="width:500px;"  ng-model="viewfirstname" disabled /></span>
+                    </div>
+                    <span ng-click="editVisit(user,'Add')" style="margin-left:500px;" class="pull-right hyperlinktext">Add New Visit</span>  
+                  
+                    <!--Visit Page-->
+                    <div class="container well" ng-show="PatientVisitContainer" ng-include src="'visitdetail.html'"></div>
+
+                </div> <!-- End OF Row -->
+            </div><!-- End OF Container -->
+
+            <footer id="footer" class="text-center">
+                <!--Page Footer Detail-->
+                <div ng-include src="'footer.html'"></div>
+            </footer>
+
+        </div> <!-- End Of ng-controller -->
+    </div> <!-- End Of ng-app -->
+
+
+</body>
+</html>

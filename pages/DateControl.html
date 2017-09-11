@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS Directive checkbox[input]</title>
+    <script src="angular.js"></script>
+    <style>
+        b, span {
+            color: #fa4b2a;
+        }
+    </style>
+</head>
+<body ng-app="dateDemo">
+    <script>
+   angular.module('dateDemo', [])
+     .controller('dateController', ['$scope', function($scope) {
+       $scope.dateExample = {
+         value: new Date(2014, 08, 15, 17, 58)
+       };
+     }]);
+    </script>
+    <form name="demoForm" ng-controller="dateController as dateCtrl">
+        <label for="exampleInput">Select a Date in year 2014:</label>
+
+        <input type="datetime-local" name="input" ng-model="dateExample.value"
+               placeholder="yyyy-MM-ddTHH:mm:ss" min="2014-01-01T00:00:00" max="2016-12-31T00:00:00" required />
+        <!-- min 2014 and max 2016  in format yyyy-MM-ddTHH:mm:ss -->
+        <div role="alert">
+
+            <span class="error" ng-show="demoForm.input.$error.required">
+                This Input is Required!
+            </span>
+
+            <span class="error" ng-show="demoForm.input.$error.date">
+                Date Not Valid!
+            </span>
+
+        </div>
+
+        <i>value = <b>{{dateExample.value | date: "yyyy-MM-ddTHH:mm:ss"}}</b></i><br />
+        <i>demoForm.input.$valid = <b>{{demoForm.input.$valid}}</b></i><br />
+        <i>demoForm.input.$error = <b>{{demoForm.input.$error}}</b></i><br />
+        <i>demoForm.$valid = <b>{{demoForm.$valid}}</b></i><br />
+        <i>demoForm.$error.required = <b>{{!!demoForm.$error.required}}</b></i><br />
+    </form>
+</body>
+</html>

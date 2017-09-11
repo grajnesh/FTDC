@@ -1,0 +1,107 @@
+﻿<!--Patient Detail SHOW-->
+<table cellpadding=10 cellspacing=10 border=0 class="table">
+    <tr class="tableHeader">
+        <!--<th>PId</th>-->
+        <th>No.</th>
+        <th ng-click="sort('firstname')" style="width:100px;">
+            First Name
+            <span class="glyphicon sort-icon" ng-show="sortKey=='firstname'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+        <th ng-click="sort('lastname')">
+            Last Name
+            <span class="glyphicon sort-icon" ng-show="sortKey=='lastname'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+        <th ng-click="sort('address')">
+            Address
+            <span class="glyphicon sort-icon" ng-show="sortKey=='address'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+        <th ng-click="sort('email')">
+            Email
+            <span class="glyphicon sort-icon" ng-show="sortKey=='email'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+        <th ng-click="sort('phone')">
+            Phone
+            <span class="glyphicon sort-icon" ng-show="sortKey=='phone'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+        <th ng-click="sort('active')">
+            Active
+            <span class="glyphicon sort-icon" ng-show="sortKey=='active'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+        <!--<th>Select</th>-->
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr ng-class-odd="'odd'" ng-class-even="'even'"
+        dir-paginate="user in users|orderBy:sortKey:reverse|itemsPerPage:actItem | filter:search"
+        ng-class="{'selected':$index == selectedRow}"
+        ng-click="selectPatient(user,$index)"
+           current-page="currentPage" >  
+        <!--<td>{{user.id }}</td>-->
+        <td>{{ ($index + 1) + (currentPage - 1) * actItem}}</td>
+        <td>{{user.firstname }}</td>
+        <td>{{user.lastname }}</td>
+        <td>{{user.address }}</td>
+        <td>{{user.email  }}</td>
+        <td>{{user.phone  }}</td>
+        <td>{{user.active}}</td>
+        <!--<td><div ng-click="selectPatient(user)" class="btn btn-primary">S</div></td>-->
+        <td><div ng-click="editPatient(user,'Update')" class="btn btn-primary">E</div></td>
+        <td><div ng-click="deletePatient(user)" class="btn btn-danger">X</div></td>
+    </tr>
+    <tr>
+        <td colspan="10">
+            <div class="pageControl" >
+                <dir-pagination-controls max-size="5"
+                                         direction-links="true"
+                                         boundary-links="true" 
+                                         on-page-change="pageChangeHandler()">
+                </dir-pagination-controls>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<!--Patient Detail EDIT-->
+<div class="container" ng-show="PatientFormContainer">
+        <div ng-click="closeFrmBtn()">X</div>
+        <table class="table">
+            <tr>
+                <td><b><i>Patient Id</i></b></td>
+                <td><input type="text" disabled="disabled" ng-model="user.patientid" /></td>
+            </tr>
+            <tr>
+                <td>First Name</td>
+                <td><input type="text" placeholder="First Name" ng-model="user.firstname" required />
+                    <div ng-message="required" style="color:red;">This field is required</div></td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td><input type="text" placeholder="Last Name" ng-model="user.lastname" /></td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td><input type="text" placeholder="Address" ng-model="user.address" /></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="text" placeholder="Email" ng-model="user.email" /></td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td><input type="text" placeholder="Phone" ng-model="user.phone" /></td>
+            </tr>
+            <tr>
+                <td>Active</td>
+                <td>
+                    <input type="checkbox" ng-checked="UserActiveChecked" ng-model="user.UserActive" />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="button" class="btn btn-default" value="Save" ng-click="AddUpdateUser()" />
+                    <input type="button" class="btn btn-danger" value="Cancel" ng-click="Cancel()" />
+                </td>
+            </tr>
+        </table>
+</div><!-- End OF Container -->

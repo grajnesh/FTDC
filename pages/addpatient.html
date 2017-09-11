@@ -1,0 +1,143 @@
+﻿<!doctype html>
+<html lang="en">
+ <head>
+	<meta charset="UTF-8">
+	<title>Add Patient</title>
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/bootstrap-theme.css">
+     <link rel="stylesheet" href="../css/project.css">	
+     <style>
+         span {margin: 5px;}
+     </style>
+
+     <script type="text/Javascript">
+function checkDec(el){
+ var ex = /^[0-9]+\.?[0-9]*$/;
+ if(ex.test(el.value)==false){
+   el.value = el.value.substring(0,el.value.length - 1);
+  }
+}
+     </script>
+
+ </head>
+ <body>  
+     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+     <script src="../js/AddController.js"></script>
+     <script src="../js/config.js"></script>
+
+         
+     <div ng-app="addApp">
+         <!--Page Header-->
+         <div id="header" ng-include src="'header.html'"></div>
+
+         <!--<form name="PatientForm" class="elegant-aero">-->
+         <!--Page Middle-->
+         <div id="main" ng-controller="addController">
+             <div class="container well mtp75">
+                 <span ng-click="viewPatientDetails()" class="pull-right btn btn-danger">View Patient Details</span>
+                 <span ng-click="Home()" class="pull-right btn btn-danger">Home</span>
+             </div>
+             <div class="subHeading">
+                 Patient Details
+                 <input type="checkbox" ng-model="PatientAddContainer">
+             </div>
+           
+                 <!--Patient Detail EDIT-->
+                 <div class="container" ng-show="PatientAddContainer">
+                         <table class="table">
+                             <tr>
+                                 <td><b><i>Patient Id</i></b></td>
+                                 <td><input type="text" disabled="disabled" ng-model="patientid" /></td>
+                             </tr>
+                             <tr>
+                                 <td>First Name</td>
+                                 <td>
+                                     <input type="text" placeholder="First Name" name="firstname" ng-model="firstname" required /> 
+                                         <div ng-message="required" style="color:red;">This field is required</div>
+                                </td>
+                             </tr>
+                             <tr>
+                                 <td>Last Name</td>
+                                 <td><input type="text" placeholder="Last Name" ng-model="lastname" /></td>
+                             </tr>
+                             <tr>
+                                 <td>Address</td>
+                                 <td><input type="text" placeholder="Address" ng-model="address" /></td>
+                             </tr>
+                             <tr>
+                                 <td>Email</td>
+                                 <td><input placeholder="Email" ng-model="email" type="email" /></td>
+                             </tr>
+                             <tr>
+                                 <td>Phone</td>
+                                 <td><input type="text" placeholder="Phone" ng-model="phone" /></td>
+                             </tr>
+                             <tr>
+                                 <td>Active</td>
+                                 <td>
+                                     <input type="checkbox" ng-checked="UserActiveChecked" ng-model="UserActive" />
+                                 </td>
+                             </tr>
+                             <tr>
+                                 <td>Actual Complain</td>
+                                 <td><textarea id="actualcomplain" rows="4" cols="50" placeholder="Patient Complain" ng-model="actualcomplain"></textarea></td>
+                             </tr>
+                             <tr>
+                                 <td>Diagnosis</td>
+                                 <td><textarea id="diagnosis" rows="4" cols="50" placeholder="Diagnosis done by doctor" ng-model="diagnosis"></textarea></td>
+                             </tr>
+                             <tr>
+                                 <td>Treatment</td>
+                                 <td><textarea id="treatment" rows="4" cols="50" placeholder="Treatment done by doctor" ng-model="treatment"></textarea></td>
+                             </tr>
+                             <tr>
+                                 <td></td>
+                                 <td>
+                                     <input type="button" class="btn btn-default" value="Save" ng-click="AddPatient()" />
+                                     <input type="button" class="btn btn-danger" value="Cancel" ng-click="CancelPatient()" />
+                                 </td>
+                             </tr>
+                         </table>
+                 </div><!-- End OF Container -->
+                 <!--Visit Detail EDIT-->
+                 <div class="subHeading">
+                     Visit Details
+                     <input type="checkbox" ng-model="VisitAddContainer">
+                 </div>
+                 <div class="container" ng-show="VisitAddContainer">
+                         <table class="table">
+                             <tr>
+                                 <td>Patient Id</td>
+                                 <td><input type="text" disabled="disabled" ng-model="patientid" /></td>
+                             </tr>
+                             <tr>
+                                 <td><b><i>Visit No.</i></b></td>
+                                 <td><input type="text" disabled="disabled" ng-model="visitid" /></td>
+                             </tr>
+                             <tr>
+                                 <td>Visit Description</td>
+                                 <td><textarea id="visitDesc" rows="4" cols="50" placeholder="Visit Description" ng-model="visitdesc"></textarea></td>
+                             </tr>
+                             <tr>
+                                 <td>Visit Cost (INR)</td>
+                                 <td><input type="text" onkeyup="checkDec(this);"  placeholder="Visit Cost" ng-model="visitcost" />
+                                     <div ng-message="required" style="color:red;">Decimal value only.</div></td>
+                             </tr>
+                             <tr>
+                                 <td></td>
+                                 <td>
+                                     <input type="button" class="btn btn-default" value="Save" ng-click="AddVisit()" />
+                                     <input type="button" class="btn btn-danger" value="Cancel" ng-click="CancelVisit()" />
+                                 </td>
+                             </tr>
+                         </table>
+             </div> <!-- End OF Row -->
+         </div> <!-- End Of ng-controller -->
+
+         <footer id="footer" class="text-center">
+             <!--Page Footer Detail-->
+             <div ng-include src="'footer.html'"></div>
+         </footer>
+     </div> <!-- End Of ng-app -->
+</body>
+</html>

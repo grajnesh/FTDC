@@ -1,0 +1,75 @@
+﻿ <!--For Date Control-->
+<script type="text/Javascript">
+    $(function () {
+            $("#datepicker").datepicker();
+        });
+</script>
+<div class="" ng-show="ComplainVisitForm">
+    <!--Visit Detail SHOW-->
+    <table cellpadding=10 cellspacing=10 border=0 class="table">      
+        <tr>
+            <!--<th>VId</th>-->
+            <th>Visit No.</th>
+            <th ng-click="sort('visitdesc')">
+                Visit Desc.
+                <span class="glyphicon sort-icon" ng-show="sortKey=='visitdesc'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+            </th>
+            <th ng-click="sort('visitcost')">
+                Visit Cost (INR)
+                <span class="glyphicon sort-icon" ng-show="sortKey=='visitcost'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+            </th>
+            <th ng-click="sort('visitdate')">
+                Visit Date
+                <span class="glyphicon sort-icon" ng-show="sortKey=='visitdate'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+            </th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <tr ng-repeat="user in visits|orderBy:sortKey:reverse" ng-class="$even ? 'even-row' : 'odd-row'">
+            <!--<td>{{user.id}}</td>-->
+            <td>{{$index+1}}</td>
+            <td>{{user.visitdesc }}</td>
+            <td>{{user.visitcost }}</td>
+            <td>{{user.visitdate|date:'dd/MMM/yyyy' }}</td>
+            <td><div ng-click="editVisit(user,'Update')" class="btn btn-primary">E</div></td>
+            <td><div ng-click="deleteVisit(user)" class="btn btn-danger">X</div></td>
+        </tr>
+    </table>
+    <!--Visit Detail EDIT-->
+    <div class="container" ng-show="VisitFormContainer">
+            <div ng-click="closeFrmBtn()">X</div>
+            <table class="table">
+                <tr>
+                    <td><b><i>Visit Id</i></b></td>
+                    <td><input type="text" disabled="disabled" ng-model="user.visitid" />
+                </tr>
+                <tr>
+                    <td>Patient Id</td>
+                    <td><input type="text" disabled="disabled" ng-model="user.patientid" /></td>
+                </tr>
+                <tr>
+                    <td>Visit Description</td>
+                    <td><textarea id="visitDesc" rows="4" cols="50" placeholder="Enter Visit Description" ng-model="user.visitdesc"></textarea></td>
+                </tr>
+                <tr>
+                    <td>Visit Cost (INR)</td>
+                    <td><input type="text" onkeyup="checkDec(this);" placeholder="Enter Cost" ng-model="user.visitcost" />
+                        <div ng-message="required" style="color:red;">Decimal value only.</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Visit Date</td>
+                    <td>
+                        <input type="text" id="datepicker" ng-model="user.visitdate" placeholder="yyyy-mm-dd" />
+                     </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="button" class="btn btn-default" value="Save" ng-click="AddUpdateVisit()" />
+                        <input type="button" class="btn btn-danger" value="Cancel" ng-click="Cancel()" />
+                    </td>
+                </tr>
+            </table>
+    </div><!-- End OF Container -->
+</div> <!-- ComplainVistForm -->
