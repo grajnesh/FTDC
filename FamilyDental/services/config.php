@@ -1,9 +1,9 @@
 <?php 
   error_reporting(0);
-  $dbhost = 'localhost';
-  $dbuser = 'root';
-  $dbpass = 'pwd';
-  $dbname =  'fcdb';
+  $dbhost = 'familydentaldb.mysql.database.azure.com';
+  $dbuser = 'familydental@familydentaldb';
+  $dbpass = 'dental12#';
+  $dbname =  'ftdc';
   $conn = mysqli_connect($dbhost, $dbuser, $dbpass,$dbname);
   
   if (mysqli_connect_errno())

@@ -1,2 +1,2 @@
-var serviceUrl = "http://localhost/FamilyDental/services/";
-var pageUrl = "http://localhost/FamilyDental/pages/";
+var serviceUrl = "http://familydental.azurewebsites.net/FamilyDental/services/";
+var pageUrl = "http://familydental.azurewebsites.net/FamilyDental/pages/";
